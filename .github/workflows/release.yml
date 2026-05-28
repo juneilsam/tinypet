@@ -1,0 +1,92 @@
+name: Build & Release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pynput
+      - name: Run integrity tests
+        run: python tests/test_integrity.py
+
+  build-windows:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pynput pyinstaller
+      - name: Build TinyPet.exe
+        run: |
+          pyinstaller --noconfirm --clean --onefile --windowed `
+            --name TinyPet `
+            --hidden-import pynput.keyboard._win32 `
+            --hidden-import pynput.mouse._win32 `
+            tinypet/pet.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TinyPet-windows
+          path: dist/TinyPet.exe
+      - name: Attach to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/TinyPet.exe
+          generate_release_notes: true
+
+  build-macos:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pynput pyinstaller
+      - name: Build TinyPet.app
+        run: |
+          pyinstaller --noconfirm --clean --onefile --windowed \
+            --name TinyPet \
+            --osx-bundle-identifier com.juneilsam.tinypet \
+            --hidden-import pynput.keyboard._darwin \
+            --hidden-import pynput.mouse._darwin \
+            tinypet/pet.py
+      - name: Zip .app bundle
+        run: |
+          cd dist
+          zip -r TinyPet-macos.zip TinyPet.app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TinyPet-macos
+          path: dist/TinyPet-macos.zip
+      - name: Attach to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/TinyPet-macos.zip
+          generate_release_notes: true

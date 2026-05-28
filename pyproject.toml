@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tinypet"
+version = "0.1.0"
+description = "화면 한 켠에서 두리번거리는 텍스트 데스크탑 펫"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "juneilsam", email = "juneilsam@gmail.com" },
+]
+keywords = ["desktop-pet", "tkinter", "kawaii", "tinypet", "overlay", "tamagotchi"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Desktop Environment",
+]
+dependencies = [
+    "pynput>=1.7",
+]
+
+[project.optional-dependencies]
+build = [
+    "pyinstaller>=6.0",
+]
+
+[project.scripts]
+tinypet = "tinypet.pet:main"
+
+[project.urls]
+Homepage = "https://github.com/juneilsam/tinypet"
+Repository = "https://github.com/juneilsam/tinypet"
+Issues = "https://github.com/juneilsam/tinypet/issues"
+
+[tool.setuptools.packages.find]
+include = ["tinypet*"]
