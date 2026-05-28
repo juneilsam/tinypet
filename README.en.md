@@ -32,7 +32,7 @@ Quietly inside your screen, a tiny friend looks around, dozes off, and sometimes
 
 ```
    (♡ㅅ♡ )            (╯｀ㅅ´)╯︵┻━┻          ( @ㅅ@ )～
-   hearts when adored   spam-click: table flip   shake it: dizzy
+   hearts when adored   ???: table flip   ???: dizzy
 ```
 
 </div>
