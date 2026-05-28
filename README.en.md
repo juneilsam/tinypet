@@ -98,9 +98,9 @@ A mouse is all you need — click for a greeting, shake it dizzy, and bully it t
 | Action | Effect |
 |---|---|
 | Left-click pet | Wave / hearts / smile (cycles on each click) |
-| Spam-click pet 6+ times in 5s | Angry → cools down |
-| Spam-click pet 10+ times in 5s | Table-flip easter egg |
-| Shake pet left-right while dragging | Dizzy |
+| ??? | Angry → cools down |
+| ??? | Table-flip easter egg |
+| ??? | Dizzy |
 | Drag pet | Move position (auto-saved) |
 | Right-click pet | Menu |
 | Any key (while asleep) | Wakes up |
