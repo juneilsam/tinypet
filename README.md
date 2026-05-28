@@ -187,3 +187,7 @@ python -m tinypet
 ## 라이선스
 
 [MIT](LICENSE)
+
+---
+
+버그 및 오류 신고는 언제나 환영합니다.
